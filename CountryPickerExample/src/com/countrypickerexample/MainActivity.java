@@ -58,8 +58,8 @@ public class MainActivity extends FragmentActivity {
 					public void onSelectCountry(String name, String code) {
 						Toast.makeText(
 								MainActivity.this,
-								"Country Name: " + name + " - Code: " + code
-										+ " - Currency: "
+								"Country Name: " + name + " - Code: " + code +" - DialingCode "
+									+GetCountryZipCodeByID(code)	+ " - Currency: "
 										+ CountryPicker.getCurrencyCode(code),
 								Toast.LENGTH_SHORT).show();
 					}
@@ -71,5 +71,21 @@ public class MainActivity extends FragmentActivity {
 		});
 		return true;
 	}
+	public String GetCountryZipCodeByID(String CountryID) {
+	        String CountryZipCode = "";
+	        if (CountryID.equals("")) {
+	            return "";
+	        } else {
+	            String[] rl = ourContext.getResources().getStringArray(R.array.CountryCodes);
+	            for (String aRl : rl) {
+	                String[] g = aRl.split(",");
+	                if (g[1].trim().equals(CountryID.trim())) {
+	                    CountryZipCode = g[0];
+	                    break;
+	                }
+	            }
+	        }
+        return "+" + CountryZipCode;
+    }
 
 }
